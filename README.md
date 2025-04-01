@@ -37,7 +37,7 @@ pip install environs
 Exemplo de carregamento das variáveis com environs:
 
 
-```python3
+```python
 from environs import Env
 
 # Inicializa e carrega variáveis do ficheiro .env
@@ -49,7 +49,7 @@ env.read_env()
 ## Exemplo de Uso
 Abaixo apresenta-se um exemplo de integração com Odoo através da classe OdooIntegration, utilizando o modelo PartnerModel para consultar contactos com base no NIF (VAT):
 
-```python3
+```python
 from odoo import PartnerModel
 
 # Exceção personalizada para sinalizar que um ou mais contactos não foram encontrados
