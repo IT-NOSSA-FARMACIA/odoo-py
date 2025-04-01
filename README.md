@@ -108,6 +108,7 @@ pip uninstall odoo-py
 
 ## Contribuição
 Contribuições para o aprimoramento do odoo-py são bem-vindas. Caso identifique problemas ou deseje sugerir melhorias, por favor, submeta um issue ou pull request no repositório oficial do projeto.
+[github/odoo-py](https://github.com/IT-NOSSA-FARMACIA/odoo-py)
 
 ## Licença
 O **odoo-py** é distribuído sob a licença MIT. Para mais detalhes, consulte o arquivo LICENSE no repositório do projeto.
