@@ -1,1 +1,1 @@
-environs==9.5.0
+environs>=9.5.0
