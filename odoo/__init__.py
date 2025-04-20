@@ -14,3 +14,5 @@ from ._analytic_account import AnalyticAccountModel
 from ._payment_term import PaymentTermModel
 from ._company import CompanyModel
 from ._purchase_order import PurchaseOrderModel
+from ._account_move import AccountMoveModel
+from ._account_invoice import AccountInvoiceModel

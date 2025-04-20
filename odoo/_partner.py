@@ -96,3 +96,7 @@ class PartnerModel(OdooIntegration):
             "res.partner", [filter], fields or [], limit, offset
         )
         return response
+    
+    def action_archive_partner(self, partner_id):
+        response = self.execute_action("res.partner", "action_archive", partner_id)
+        return response

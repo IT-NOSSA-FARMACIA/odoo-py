@@ -1,5 +1,5 @@
 from ._integration import OdooIntegration
-
+from .exceptions import ProductNotFoundError
 
 class ProductModel(OdooIntegration):
     def __init__(self, *args, **kwargs):
@@ -15,6 +15,6 @@ class ProductModel(OdooIntegration):
         )
         if response:
             return response[0]
-        raise Exception(f"Product '{reference_id}' not found")
+        raise ProductNotFoundError(f"Product '{reference_id}' not found")
 
  
