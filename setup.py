@@ -8,7 +8,7 @@ with open('requirements.txt') as f:
 
 setup(
     name="odoo-py",
-    version="0.0.1",
+    version="0.0.14",
     author="Rafael Galleani",
     description="Interface to call Odoo API",
     long_description=long_description,
