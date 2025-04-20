@@ -1,8 +1,8 @@
 [project]
-name = "odoo_package_Rafael Galleani"
-version = "0.0.1"
+name = "odoo_py"
+version = "0.0.14"
 authors = [
-  { name="Rafael Galleani", email="" },
+  { name="Rafael Galleani", email="rafegal@gmail.com" },
 ]
 description = "Package to abstract the Odoo API"
 readme = "README.md"
