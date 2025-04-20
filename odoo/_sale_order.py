@@ -57,3 +57,52 @@ class SaleOrderModel(OdooIntegration):
     def certify_sale_order(self, sale_order_id):
         response = self.execute_action("sale.order", "certify", sale_order_id)
         return response
+
+    def create_invoice_from_sale_order(self, sale_order_id):
+        # sale_order_id is used as active_id (context)
+        extra_context = {"active_id": sale_order_id, "active_ids": [sale_order_id], "active_model": "sale.order"}
+        response = self.execute_action("sale.advance.payment.inv", "create", [], extra_context)
+        return response
+    
+
+    def confirm_invoice_from_sale_order(self, invoice_id, sale_order_id):
+        # sale_order_id is used as active_id (context)
+        extra_context = {"active_id": sale_order_id, "active_ids": [sale_order_id], "active_model": "sale.order"}
+        response = self.execute_action("sale.advance.payment.inv", "create_invoices", invoice_id, extra_context)
+        return response
+    
+    def certify_invoice_from_sale_order(self, sale_order_id):
+        response = self.execute_action("sale.order", "certify", sale_order_id)
+        return response
+    
+    def get_sale_order_message(self, message_id):
+        response = self.read("mail.message", [message_id])
+        return response
+
+    def get_sale_order_attachment(self, attachment_id):
+        response = self.read("ir.attachment", [attachment_id])
+        return response[0]
+
+    def confirm_invoice_by_button_action_by_invoice_id(self, invoice_id):
+        response = self.execute_action("account.move", "action_post", invoice_id)
+        return response
+    
+    def get_invoice_id_from_sale_order(self, sale_order_id):
+        response = self.execute_action("sale.order", "action_view_invoice", sale_order_id)
+        return response["res_id"]
+
+    def invoice_force_creation(self, invoice_id):
+        response = self.update("account.move", invoice_id, {"force_open": True})
+        return response
+    
+    def invoice_insert_footer_notes(self, invoice_id, notes):
+        response = self.update("account.move", invoice_id, {"footer_notes": notes})
+        return response
+    
+    # def invoice_insert_narration(self, invoice_id, narration):
+    #     response = self.update("account.move", invoice_id, {"narration": narration})
+    #     return response
+    
+    # def get_invoice(self, invoice_id):
+    #     response = self.read("account.move", [invoice_id])
+    #     return response[0]
