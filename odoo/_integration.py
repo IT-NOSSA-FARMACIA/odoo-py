@@ -85,7 +85,10 @@ class OdooIntegration:
         )
         return response
 
-    def create(self, model: str, data: list[dict]):
+    def create(self, model: str, data: list[dict], extra_context: dict = None):
+        context = {"context": {"lang": self._language}}
+        if extra_context:
+            context["context"].update(extra_context)
         response = self._models.execute_kw(
             self._db,
             self._uid,
@@ -93,7 +96,7 @@ class OdooIntegration:
             model,
             "create",
             data,
-            {"context": {"lang": self._language}},
+            context,
         )
         return response
 
