@@ -1,20 +1,20 @@
-from ._account_tax import AccountTaxModel
-from ._country import CountryModel
-from ._crm_tag import CRMTagModel
-from ._integration import OdooIntegration
-from ._partner_category import PartnerCategoryModel
-from ._partner import PartnerModel
-from ._product_category import ProductCategoryModel
-from ._product_template import ProductTemplateModel
-from ._product import ProductModel
-from ._stock import StockModel
-from ._sale_order import SaleOrderModel
-from ._user import UserModel
-from ._analytic_account import AnalyticAccountModel
-from ._payment_term import PaymentTermModel
-from ._company import CompanyModel
-from ._purchase_order import PurchaseOrderModel
-from ._account_move import AccountMoveModel
-from ._account_invoice import AccountInvoiceModel
-from ._mail_message import MailMessageModel
-from ._ir_attachment import IRAttachmentModel
+from ._account_tax import AccountTaxModel as AccountTaxModel
+from ._country import CountryModel as CountryModel
+from ._crm_tag import CRMTagModel as CRMTagModel
+from ._integration import OdooIntegration as OdooIntegration
+from ._partner_category import PartnerCategoryModel as PartnerCategoryModel
+from ._partner import PartnerModel as PartnerModel
+from ._product_category import ProductCategoryModel as ProductCategoryModel
+from ._product_template import ProductTemplateModel as ProductTemplateModel
+from ._product import ProductModel as ProductModel
+from ._stock import StockModel as StockModel
+from ._sale_order import SaleOrderModel as SaleOrderModel
+from ._user import UserModel as UserModel
+from ._analytic_account import AnalyticAccountModel as AnalyticAccountModel
+from ._payment_term import PaymentTermModel as PaymentTermModel
+from ._company import CompanyModel as CompanyModel
+from ._purchase_order import PurchaseOrderModel as PurchaseOrderModel
+from ._account_move import AccountMoveModel as AccountMoveModel
+from ._account_invoice import AccountInvoiceModel as AccountInvoiceModel
+from ._mail_message import MailMessageModel as MailMessageModel
+from ._ir_attachment import IRAttachmentModel as IRAttachmentModel

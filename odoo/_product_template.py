@@ -1,11 +1,13 @@
+from __future__ import annotations
+from typing import Any
 from ._integration import OdooIntegration
 
 
 class ProductTemplateModel(OdooIntegration):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
 
-    def _validate_detailed_type(self, detailed_type):
+    def _validate_detailed_type(self, detailed_type: str) -> None:
         """
         product = Artigo Armazenável
         consul = Consumível
@@ -14,7 +16,7 @@ class ProductTemplateModel(OdooIntegration):
         if detailed_type not in ["product", "consul", "service"]:
             raise Exception("Detailed type not valid")
 
-    def _validate_invoice_policy(self, invoice_policy):
+    def _validate_invoice_policy(self, invoice_policy: str) -> None:
         """
         orders = Quantidades Pedidas
         delivery = Quantidades Entregues
@@ -22,7 +24,7 @@ class ProductTemplateModel(OdooIntegration):
         if invoice_policy not in ["order", "delivery"]:
             raise Exception("Invoice policy not valid")
 
-    def _validate_expense_policy(self, expense_policy):
+    def _validate_expense_policy(self, expense_policy: str) -> None:
         """
         no = Não
         cost = A Custo
@@ -31,7 +33,7 @@ class ProductTemplateModel(OdooIntegration):
         if expense_policy not in ["no", "cost", "sales_price"]:
             raise Exception("Expense policy not valid")
 
-    def _validate_tracking(self, tracking):
+    def _validate_tracking(self, tracking: str | None) -> None:
         """
         none = Sem rastreio
         lot = Por Lotes
@@ -40,7 +42,7 @@ class ProductTemplateModel(OdooIntegration):
         if tracking not in ["lot", "serial", None]:
             raise Exception("Tracking not valid")
 
-    def _validate_purchase_method(self, purchase_method):
+    def _validate_purchase_method(self, purchase_method: str) -> None:
         """
         receive = Nas quantidades recebidas
         purchase = Nas quantidades pedidas
@@ -48,11 +50,11 @@ class ProductTemplateModel(OdooIntegration):
         if purchase_method not in ["purchase", "receive"]:
             raise Exception("Purchase method not valid")
 
-    def get_product_by_id(self, product_id):
+    def get_product_by_id(self, product_id: int) -> list[dict[str, Any]]:
         response = self.read("product.template", [product_id])
         return response
 
-    def get_product_id_by_reference(self, reference_id):
+    def get_product_id_by_reference(self, reference_id: str) -> int:
         response = self.search(
             "product.template", [[["default_code", "=", reference_id]]]
         )
@@ -62,23 +64,23 @@ class ProductTemplateModel(OdooIntegration):
 
     def create_product(
         self,
-        name,
-        default_code,
-        detailed_type,
-        invoice_policy,
-        expense_policy,
-        list_price,
-        taxes_id,
-        standard_price,
-        categ_id,
-        tracking,
-        purchase_method,
-        supplier_taxes_id,
-        use_expiration_date=True,
-        sale_ok=True,
-        purchase_ok=True,
-        barcode=None,
-    ):
+        name: str,
+        default_code: str,
+        detailed_type: str,
+        invoice_policy: str,
+        expense_policy: str,
+        list_price: float,
+        taxes_id: list[int],
+        standard_price: float,
+        categ_id: int,
+        tracking: str | None,
+        purchase_method: str,
+        supplier_taxes_id: list[int],
+        use_expiration_date: bool = True,
+        sale_ok: bool = True,
+        purchase_ok: bool = True,
+        barcode: str | None = None,
+    ) -> int | list[int]:
         self._validate_detailed_type(detailed_type)
         self._validate_invoice_policy(invoice_policy)
         self._validate_expense_policy(expense_policy)

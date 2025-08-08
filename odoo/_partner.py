@@ -1,15 +1,21 @@
+from __future__ import annotations
+from typing import Any
 from ._integration import OdooIntegration
 
 
 class PartnerModel(OdooIntegration):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
 
-    def get_partner_by_id(self, partner_id, fields=None):
+    def get_partner_by_id(
+        self, partner_id: int, fields: list[str] | None = None
+    ) -> list[dict[str, Any]]:
         response = self.read("res.partner", [partner_id], fields)
         return response
 
-    def get_partner_id_by_name(self, partner_name, fields=None):
+    def get_partner_id_by_name(
+        self, partner_name: str, fields: list[str] | None = None
+    ) -> int:
         response = self.search("res.partner", [[["name", "=", partner_name]]], fields)
         if response:
             return response[0]
@@ -18,43 +24,42 @@ class PartnerModel(OdooIntegration):
     def update_partner(
         self,
         partner_id: int,
-        partner_data: dict,
-    ):
+        partner_data: dict[str, Any],
+    ) -> bool:
         response = self.update("res.partner", partner_id, partner_data)
         return response
 
     def create_partner_from_scratch(
         self,
-        partner_data: dict,
-    ):
+        partner_data: dict[str, Any],
+    ) -> int | list[int]:
         response = self.create("res.partner", [partner_data])
         return response
 
     def create_partner(
         self,
-        name,
-        street,
-        city,
-        state_id,
-        country_id,
-        zip_code,
-        nif,
-        contact_type,
-        anf_code,
-        pharmacy_name,
-        owner_name,
-        phone,
-        mobile,
-        email,
-        list_category_id,
-        list_crm_tag_id,
-        vendor_user_id,
-        reference,
-        language="pt_PT",
-        is_company=True,
-        company_type="company",
-    ):
-
+        name: str,
+        street: str,
+        city: str,
+        state_id: int,
+        country_id: int,
+        zip_code: str,
+        nif: str,
+        contact_type: str,
+        anf_code: str | None,
+        pharmacy_name: str | None,
+        owner_name: str | None,
+        phone: str | None,
+        mobile: str | None,
+        email: str | None,
+        list_category_id: list[int],
+        list_crm_tag_id: list[int],
+        vendor_user_id: int | None,
+        reference: str | None,
+        language: str = "pt_PT",
+        is_company: bool = True,
+        company_type: str = "company",
+    ) -> int | list[int]:
         partner_data = {
             "name": name,
             "street": street,
@@ -81,22 +86,28 @@ class PartnerModel(OdooIntegration):
         response = self.create("res.partner", [partner_data])
         return response
 
-    def get_and_read_all_partners(self, fields=None, limit=10, offset=0):
+    def get_and_read_all_partners(
+        self, fields: list[str] | None = None, limit: int = 10, offset: int = 0
+    ) -> list[dict[str, Any]]:
         response = self.search_read("res.partner", [], fields or [], limit, offset)
         return response
 
-    def count_partners_by_any_filter(self, filter: list = None):
+    def count_partners_by_any_filter(self, filter: list[Any] | None = None) -> int:
         response = self.search_count("res.partner", [filter or []])
         return response
 
     def get_and_read_partners_by_any_filter(
-        self, filter: list, fields=None, limit=10, offset=0
-    ):
+        self,
+        filter: list[Any],
+        fields: list[str] | None = None,
+        limit: int = 10,
+        offset: int = 0,
+    ) -> list[dict[str, Any]]:
         response = self.search_read(
             "res.partner", [filter], fields or [], limit, offset
         )
         return response
-    
-    def action_archive_partner(self, partner_id):
+
+    def action_archive_partner(self, partner_id: int) -> dict[str, Any]:
         response = self.execute_action("res.partner", "action_archive", partner_id)
         return response
