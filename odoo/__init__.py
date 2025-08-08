@@ -16,3 +16,5 @@ from ._company import CompanyModel
 from ._purchase_order import PurchaseOrderModel
 from ._account_move import AccountMoveModel
 from ._account_invoice import AccountInvoiceModel
+from ._mail_message import MailMessageModel
+from ._ir_attachment import IRAttachmentModel
