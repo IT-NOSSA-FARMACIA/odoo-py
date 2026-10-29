@@ -18,3 +18,6 @@ from ._account_move import AccountMoveModel as AccountMoveModel
 from ._account_invoice import AccountInvoiceModel as AccountInvoiceModel
 from ._mail_message import MailMessageModel as MailMessageModel
 from ._ir_attachment import IRAttachmentModel as IRAttachmentModel
+from ._account_journal import AccountJournalModel as AccountJournalModel
+from ._account_account import AccountAccountModel as AccountAccountModel
+from ._generic import OdooGenericIntegration as OdooGenericIntegration

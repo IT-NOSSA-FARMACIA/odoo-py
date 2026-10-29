@@ -29,6 +29,10 @@ class AccountMoveModel(OdooIntegration):
         response = self.read("account.move.line", [account_move_line_id])
         return response
 
+    def get_invoice_lines_by_any_filter(self, filter: list[Any]) -> list[int]:
+        response = self.search("account.move.line", [filter])
+        return response
+
     def update_invoice_line(self, invoice_id: int, data: dict[str, Any]) -> bool:
         response = self.update("account.move", invoice_id, data)
         return response

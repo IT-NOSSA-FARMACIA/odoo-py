@@ -1,6 +1,6 @@
 [project]
 name = "odoo_py"
-version = "0.0.15"
+version = "0.0.20"
 authors = [
   { name="Rafael Galleani", email="rafegal@gmail.com" },
 ]

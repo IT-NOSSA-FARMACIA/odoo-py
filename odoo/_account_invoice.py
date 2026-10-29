@@ -51,15 +51,6 @@ class AccountInvoiceModel(OdooIntegration):
                 "partner_id": partner_id,
                 "is_email": True,
                 "partner_ids": partner_ids,
-                # "partner_ids": [
-                #     [
-                #         6,
-                #         False,
-                #         [
-                #             5215
-                #         ]
-                #     ]
-                # ],
                 "subject": subject,
                 "body": body,
                 "attachment_ids": [[6, False, [attachment_id]]],
@@ -94,15 +85,6 @@ class AccountInvoiceModel(OdooIntegration):
             "force_email": True,
             "mark_invoice_as_sent": True,
             "model_description": "Fatura",
-            # "params": {
-            #     "id": invoice_id,
-            #     "action": 232,
-            #     "cids": 2,
-            #     "active_id": 7489,
-            #     "menu_id": 246,
-            #     "model": "account.move",
-            #     "view_type": "form",
-            # }
         }
         params = {
             "move_types": "",

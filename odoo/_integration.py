@@ -3,6 +3,8 @@ from typing import Any
 from environs import Env
 import xmlrpc.client
 
+from ._transport import DEFAULT_TIMEOUT, server_proxy
+
 env = Env()
 env.read_env()
 
@@ -15,17 +17,19 @@ class OdooIntegration:
         odoo_username: str | None = None,
         odoo_password: str | None = None,
         odoo_language: str | None = None,
+        odoo_timeout: float | None = None,
     ) -> None:
         self._url = odoo_url or env.str("ODOO_URL")
         self._db = odoo_db or env.str("ODOO_DB")
         self._username = odoo_username or env.str("ODOO_USERNAME")
         self._password = odoo_password or env.str("ODOO_PASSWORD")
         self._language = odoo_language or env.str("ODOO_LANGUAGE", default="es_ES")
-        self._common = xmlrpc.client.ServerProxy("{}/xmlrpc/2/common".format(self._url))
+        self._timeout = odoo_timeout or env.float("ODOO_TIMEOUT", default=DEFAULT_TIMEOUT)
+        self._common = server_proxy("{}/xmlrpc/2/common".format(self._url), self._timeout)
         self._uid = self._common.authenticate(
             self._db, self._username, self._password, {}
         )
-        self._models = xmlrpc.client.ServerProxy("{}/xmlrpc/2/object".format(self._url))
+        self._models = server_proxy("{}/xmlrpc/2/object".format(self._url), self._timeout)
 
     def search(self, model: str, search_params: list[Any]) -> list[int]:
         response = self._models.execute_kw(
@@ -125,19 +129,27 @@ class OdooIntegration:
         self,
         model: str,
         action_type: str,
-        object_id: int,
+        object_id: list[any] | dict[str, Any],
         extra_context: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
         context = {"context": {"lang": self._language}}
         if extra_context:
             context["context"].update(extra_context)
+
+        if (
+            isinstance(object_id, int)
+            or isinstance(object_id, str)
+            or (isinstance(object_id, list) and not object_id)
+        ):
+            object_id = [object_id]
+
         response = self._models.execute_kw(
             self._db,
             self._uid,
             self._password,
             model,
             action_type,
-            [[object_id]],
+            [object_id],
             context,
         )
         return response
