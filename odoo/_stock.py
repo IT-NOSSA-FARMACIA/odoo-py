@@ -176,3 +176,23 @@ class StockModel(OdooIntegration):
     def unlink_picking(self, picking_id: int) -> dict[str, Any]:
         response = self.execute_action("stock.picking", "unlink", picking_id)
         return response
+
+    def get_stock_quantity_id_by_any_filter(
+        self, filter: list[Any]
+    ) -> list[dict[str, Any]]:
+        response = self.search("stock.quant", [filter])
+        return response
+
+    def get_stock_quantity(self, stock_quantity_id: int) -> list[dict[str, Any]]:
+        response = self.read("stock.quant", [stock_quantity_id])
+        return response
+
+    def update_stock_quantity(
+        self, stock_quantity_id: int, data: dict[str, Any]
+    ) -> bool:
+        response = self.update("stock.quant", stock_quantity_id, data)
+        return response
+
+    def create_stock_quantity(self, data: dict[str, Any]) -> int | list[int]:
+        response = self.create("stock.quant", [data])
+        return response
